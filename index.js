@@ -39,7 +39,7 @@ var api = new ParseServer({
 	 appName: process.env.APP_NAME || "UniMarkit", 
 
 	 emailAdapter: {
-	 	module: 'parse/server-simple-mailgun-adapter',
+	 	module: '@parse/simple-mailgun-adapter',
 	 	options: {
 			fromAddress: process.env.EMAIL_FROM || "no-reply@unimarkit.com",
 	   		domain: process.env.MAILGUN_DOMAIN || "unimarkit.com",
