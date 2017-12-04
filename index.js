@@ -34,7 +34,7 @@ var api = new ParseServer({
 	/* The public URL of your app */
 	// This will appear in the link that is used to verify email addresses and reset passwords.
 	/* Set the mount path as it is in serverURL */
-	 publicServerURL: 'https://unimarkitofficial.herokuapp.com/parse',
+	 publicServerURL: 'https://unimarkit-official.herokuapp.com/parse',
 	/* This will appear in the subject and body of the emails that are sent */
 	 appName: process.env.APP_NAME || "UniMarkit", 
 
