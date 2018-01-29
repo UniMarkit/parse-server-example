@@ -36,7 +36,7 @@ var api = new ParseServer({
 	/* Set the mount path as it is in serverURL */
 	 publicServerURL: 'https://unimarkit-official.herokuapp.com/parse',
 	/* This will appear in the subject and body of the emails that are sent */
-	 appName: process.env.APP_NAME || "UniMarkit", 
+	 appName: process.env.APP_NAME || "UniMarkit-Official", 
 
 	 emailAdapter: {
 	 	module: '@parse/simple-mailgun-adapter',
