@@ -24,10 +24,10 @@ var api = new ParseServer({
 	appId: process.env.APP_ID || 'myAppId',
 	masterKey: process.env.MASTER_KEY || 'myMasterKey', //Add your master key here. Keep it secret!	
 	
-	//**** Live Query ****//
-	// liveQuery: {
-	// 	classNames: ["TestObject", "Place", "Team", "Player", "ChatMessage"] // List of classes to support for query subscriptions
-	// },
+	
+	 liveQuery: {
+	 	classNames: ["Conversations", "Messages", "Notifications"] // List of classes to support for query subscriptions
+	 },
 
 	//**** Email Verification ****//
 	/* Enable email verification */
