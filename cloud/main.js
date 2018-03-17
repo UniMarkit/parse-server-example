@@ -14,7 +14,7 @@ Parse.Cloud.define('search', function(req, res) {
   query.select('$score');
   query.find()
     .then(function(results) {
-      response.success(results);
+      res.success(results);
     })
     .catch(function(error) {
       console.log(error);
