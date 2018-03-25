@@ -28,3 +28,6 @@ node_modules
 
 # Emacs
 *~
+
+# Development Environment Files
+.env

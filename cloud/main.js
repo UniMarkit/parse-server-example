@@ -4,12 +4,7 @@ Parse.Cloud.define('hello', function(req, res) {
 });
 
 Parse.Cloud.define('search', function(req, res) {
-  var query = new Parse.Query("Listings");
-  if(req.params.currentUser !== null) {
-    query.notEqualTo("sellerID", req.params.currentUser);
-  }
-  query.equalTo("buySell", true);
-  query.fullText("itemName", req.params.itemName)
+  var query = createFullTextQuery(req, "itemName", req.params.itemName)
   query.ascending('$score');
   query.select('$score');
   query.find()
@@ -19,6 +14,14 @@ Parse.Cloud.define('search', function(req, res) {
     .catch(function(error) {
       console.log(error);
     })
-
-
 });
+
+function createFullTextQuery(req, key, value) {
+    var query = new Parse.Query("Listings");
+    if(req.user !== undefined) {
+      query.notEqualTo("sellerID", req.user.objectId);
+    }
+    query.equalTo("BuySell", true);
+    query.fullText(key, value);
+    return query;
+}
