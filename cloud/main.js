@@ -14,6 +14,7 @@ Parse.Cloud.define('search', function(req, res) {
     'sellerName',
     'updatedAt',
     'itemCategory',
+    'itemDesc',
     'School',
     'sellerUsername',
     'Location',
