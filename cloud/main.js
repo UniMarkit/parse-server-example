@@ -6,7 +6,24 @@ Parse.Cloud.define('hello', function(req, res) {
 Parse.Cloud.define('search', function(req, res) {
   var query = createFullTextQuery(req, "itemName", req.params.itemName)
   query.ascending('$score');
-  query.select('$score');
+  query.select(
+    '$score',
+    'objectId',
+    'fee',
+    'price',
+    'sellerName',
+    'updatedAt',
+    'itemCategory',
+    'School',
+    'sellerUsername',
+    'Location',
+    'imageFile',
+    'sellerID',
+    'createdAt',
+    'userProfileImage',
+    'itemName',
+    // 'buyerName'
+  );
   query.find()
     .then(function(results) {
       res.success(results);
