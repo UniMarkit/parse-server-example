@@ -34,6 +34,18 @@ Parse.Cloud.define('search', function(req, res) {
     })
 });
 
+Parse.Cloud.define('hasConnectedStripe', function(req, res) {
+  // var query = new Parse.Query("User");
+  res.success(false);
+  // query.find()
+  //   .then(function(results) {
+  //     res.success(results);
+  //   })
+  //   .catch(function(error) {
+  //     console.log(error);
+  //   })
+});
+
 // Parse.Cloud.define('testSearch', function(req, res) {
 //   var query = new Parse.Query("Listings");
 //   console.error(req.user.id);
