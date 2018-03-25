@@ -16,10 +16,27 @@ Parse.Cloud.define('search', function(req, res) {
     })
 });
 
+// Parse.Cloud.define('testSearch', function(req, res) {
+//   var query = new Parse.Query("Listings");
+//   console.error(req.user.id);
+//   console.error(req.user['objectId']);
+//   console.error(JSON.stringify(req.user, null, 4));
+//   query.notEqualTo("sellerID", req.user.id);
+//   query.ascending('$score');
+//   query.select('$score');
+//   query.find()
+//     .then(function(results) {
+//       res.success(results);
+//     })
+//     .catch(function(error) {
+//       console.log(error);
+//     });
+// });
+
 function createFullTextQuery(req, key, value) {
     var query = new Parse.Query("Listings");
     if(req.user !== undefined) {
-      query.notEqualTo("sellerID", req.user.objectId);
+      query.notEqualTo("sellerID", req.user.id);
     }
     query.equalTo("BuySell", true);
     query.fullText(key, value);
