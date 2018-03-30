@@ -76,7 +76,7 @@ app.get('/', function(req, res) {
 
 app.get('/stripeRedirect', function(req, res) {
   console.log(req);
-  res.status(200).send('Success');
+  res.status(200).send(JSON.stringify(req.params));
 });
 
 // There will be a test page available on the /test path of your server url
