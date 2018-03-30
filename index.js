@@ -5,6 +5,7 @@ var express = require('express');
 var ParseServer = require('parse-server').ParseServer;
 var S3Adapter = require('parse-server').S3Adapter;
 var path = require('path');
+require('dotenv').config();
 
 var databaseUri = process.env.DATABASE_URI || process.env.MONGODB_URI;
 
@@ -17,14 +18,14 @@ var api = new ParseServer({
 	databaseURI: databaseUri || 'mongodb://localhost:27017/dev',
 	cloud: process.env.CLOUD_CODE_MAIN || __dirname + '/cloud/main.js',
 	serverURL: process.env.SERVER_URL || 'http://localhost:1337/parse',  // Don't forget to change to https if needed
-	
+
 	//**** Security Settings ****//
-	
-	// allowClientClassCreation: process.env.CLIENT_CLASS_CREATION || false, 
+
+	// allowClientClassCreation: process.env.CLIENT_CLASS_CREATION || false,
 	appId: process.env.APP_ID || 'myAppId',
-	masterKey: process.env.MASTER_KEY || 'myMasterKey', //Add your master key here. Keep it secret!	
-	
-	
+	masterKey: process.env.MASTER_KEY || 'myMasterKey', //Add your master key here. Keep it secret!
+
+
 	 liveQuery: {
 	 	classNames: ["Conversations", "Messages", "Notifications"] // List of classes to support for query subscriptions
 	 },
@@ -37,8 +38,8 @@ var api = new ParseServer({
 	/* Set the mount path as it is in serverURL */
 	 publicServerURL: 'https://unimarkit-official.herokuapp.com/parse',
 	/* This will appear in the subject and body of the emails that are sent */
-	 appName: process.env.APP_NAME || "UniMarkit-Official", 
-	
+	 appName: process.env.APP_NAME || "UniMarkit-Official",
+
 	 emailAdapter: {
 	 	module: '@parse/simple-mailgun-adapter',
 	 	options: {
@@ -47,7 +48,7 @@ var api = new ParseServer({
 	  		apiKey: process.env.MAILGUN_API_KEY  || "apikey",
 	 	}
 	 },
-	
+
 	//**** File Storage ****//
 	 filesAdapter: new S3Adapter(
 	 	{
@@ -70,6 +71,11 @@ app.use(mountPath, api);
 
 // Parse Server plays nicely with the rest of your web routes
 app.get('/', function(req, res) {
+  res.status(200).send('Success');
+});
+
+app.get('/stripeRedirect', function(req, res) {
+  console.log(req);
   res.status(200).send('Success');
 });
 

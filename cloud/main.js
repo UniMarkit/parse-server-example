@@ -1,3 +1,6 @@
+let stripe = require('stripe')(
+  process.env.STRIPE_SECRET || "pk_live_UPv6bjQZbcXqgy2fNyZBiJXI"
+);
 
 Parse.Cloud.define('hello', function(req, res) {
   res.success('Hi');
@@ -62,6 +65,11 @@ Parse.Cloud.define('hasConnectedStripe', function(req, res) {
 //       console.log(error);
 //     });
 // });
+
+Parse.Cloud.define('acceptStripeKey', function(req, res) {
+  console.log(req);
+  res.success("Hi");
+});
 
 function createFullTextQuery(req, key, value) {
     var query = new Parse.Query("Listings");
