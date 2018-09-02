@@ -76,7 +76,7 @@ app.use(mountPath, api);
 app.get('/', function(req, res) {
   res.status(200).send('Success');
 });
-dddsdc
+
 app.get('/refer/:id', function(req, res) {
 	const Gold = Parse.Object.extend("Gold");
 	const query = new Parse.Query(Gold);
