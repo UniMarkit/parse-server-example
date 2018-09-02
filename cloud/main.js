@@ -1,13 +1,9 @@
-let stripe = require('stripe')(
-  process.env.STRIPE_SECRET || "pk_live_UPv6bjQZbcXqgy2fNyZBiJXI"
-);
-
 Parse.Cloud.define('hello', function(req, res) {
   res.success('Hi');
 });
 
 Parse.Cloud.define('search', function(req, res) {
-  var query = createFullTextQuery(req, "itemName", req.params.itemName)
+  var query = createFullTextQuery(req, "i", req.params.itemName)
   query.ascending('$score');
   query.select(
     '$score',

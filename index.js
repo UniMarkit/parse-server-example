@@ -5,6 +5,7 @@ var express = require('express');
 var ParseServer = require('parse-server').ParseServer;
 var S3Adapter = require('parse-server').S3Adapter;
 var path = require('path');
+var Parse = require('parse');
 require('dotenv').config();
 
 var databaseUri = process.env.DATABASE_URI || process.env.MONGODB_URI;
@@ -74,9 +75,9 @@ app.get('/', function(req, res) {
   res.status(200).send('Success');
 });
 
-app.get('/stripeRedirect', function(req, res) {
-  console.log(req);
-  res.status(200).send(JSON.stringify(req.params));
+app.get('/refer/:hash', function(req, res) {
+	console.log(req.params.hash);
+	res.redirect(301, 'https://itunes.apple.com/us/app/unimarkit/id1377345929?mt=8');
 });
 
 // There will be a test page available on the /test path of your server url
