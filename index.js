@@ -5,7 +5,7 @@ var express = require('express');
 var ParseServer = require('parse-server').ParseServer;
 var S3Adapter = require('parse-server').S3Adapter;
 var path = require('path');
-var Parse = require('parse');
+// var Parse = require('parse/node');
 require('dotenv').config();
 
 var databaseUri = process.env.DATABASE_URI || process.env.MONGODB_URI;
@@ -63,6 +63,8 @@ var api = new ParseServer({
 
 var app = express();
 
+Parse.initialize(process.env.APP_ID || 'myAppId', null, process.env.MASTER_KEY || 'myMasterKey')
+Parse.serverURL = process.env.SERVER_URL || 'http://localhost:1337/parse' 
 // Serve static assets from the /public folder
 app.use('/public', express.static(path.join(__dirname, '/public')));
 
@@ -75,8 +77,19 @@ app.get('/', function(req, res) {
   res.status(200).send('Success');
 });
 
-app.get('/refer/:hash', function(req, res) {
-	console.log(req.params.hash);
+app.get('/refer/:id', function(req, res) {
+	const Gold = Parse.Object.extend("Gold");
+	const query = new Parse.Query(Gold);
+	query.equalTo("userID", req.params.id);
+	console.log(req.params.id);
+	query.first({ useMasterKey: true }).then((goldStatus) => {
+		console.log(goldStatus.get("totalReferralsMade"))
+		goldStatus.set(1)
+		goldStatus.save()
+	}, (error) => {
+		console.log(error);
+		console.log("logged error")
+	});
 	res.redirect(301, 'https://itunes.apple.com/us/app/unimarkit/id1377345929?mt=8');
 });
 
