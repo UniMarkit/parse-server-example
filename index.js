@@ -76,7 +76,7 @@ app.use(mountPath, api);
 app.get('/', function(req, res) {
   res.status(200).send('Success');
 });
-
+dddsdc
 app.get('/refer/:id', function(req, res) {
 	const Gold = Parse.Object.extend("Gold");
 	const query = new Parse.Query(Gold);
@@ -86,11 +86,12 @@ app.get('/refer/:id', function(req, res) {
 		console.log(goldStatus.get("totalReferralsMade"))
 		goldStatus.set(1)
 		goldStatus.save()
+		res.redirect(301, 'https://itunes.apple.com/us/app/unimarkit/id1377345929?mt=8');
 	}, (error) => {
 		console.log(error);
 		console.log("logged error")
+		res.redirect(301, 'https://itunes.apple.com/us/app/unimarkit/id1377345929?mt=8');
 	});
-	res.redirect(301, 'https://itunes.apple.com/us/app/unimarkit/id1377345929?mt=8');
 });
 
 // There will be a test page available on the /test path of your server url
