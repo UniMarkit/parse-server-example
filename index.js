@@ -106,9 +106,9 @@ app.get('/', function(req, res) {
 
 app.get('/refer/:id', function(req, res) {
 	const query = new Parse.Query(Parse.User);
-	query.get(req.params.id).then((user) => {
+	query.get(req.params.id,  {useMasterKey: true}).then((user) => {
 		console.log(req.params.id);
-		const tmp =  user.get("totalReferralsMade", {useMasterKey: true})
+		const tmp =  user.get("totalReferralsMade")
 		console.log(tmp);
 		const totalReferralsMade = tmp === undefined ? 0 : tmp;
 		console.log(totalReferralsMade);
