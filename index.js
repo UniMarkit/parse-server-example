@@ -93,13 +93,13 @@ app.get('/refer/:id', function(req, res) {
 		const totalReferralsMade = tmp === undefined ? 0 : tmp;
 		console.log(totalReferralsMade);
 		goldStatus.set("totalReferralsMade", totalReferralsMade + 1)
-	    goldStatus.save().then((status) => {
-			console.log(status);
-			res.redirect(301, 'https://itunes.apple.com/us/app/unimarkit/id1377345929?mt=8');	
-		});
+		return goldStatus.save();
 	}, (error) => {
 		console.log(error);
 		console.log("logged error")
+		res.redirect(301, 'https://itunes.apple.com/us/app/unimarkit/id1377345929?mt=8');	
+	}).then((status) => {
+		console.log(status);
 		res.redirect(301, 'https://itunes.apple.com/us/app/unimarkit/id1377345929?mt=8');	
 	});
 });
