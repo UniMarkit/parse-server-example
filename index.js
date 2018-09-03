@@ -86,13 +86,9 @@ app.get('/refer/:id', function(req, res) {
 	);
 	query.equalTo("userID", req.params.id);
 	console.log(req.params.id);
-	query.first().then((goldStatus) => {
-		return goldStatus.fetch()
-	}).then((gold_status) => {
-		console.log('gold_status:');
-		console.log(goldStatus);
-		console.log(goldStatus.get("totalReferralsMade"))
-		goldStatus.set(1)
+	query.first().then((gold_status) => {
+		const totalReferralsMade = goldStatus.get("totalReferralsMade") === undefined ? 0 : goldStatus.get("totalReferralsMade");
+		goldStatus.set("totalReferralsMade", totalReferralsMade + 1)
 	    goldStatus.save().then((status) => {
 			console.log(status);
 			res.redirect(301, 'https://itunes.apple.com/us/app/unimarkit/id1377345929?mt=8');	
