@@ -80,44 +80,28 @@ app.get('/', function(req, res) {
   res.status(200).send('Success');
 });
 
-// app.get('/refer/:id', function(req, res) {
-// 	const query = new Parse.Query(
-// 		'Gold'
-// 	);
-// 	query.equalTo("userID", req.params.id);
-// 	console.log(req.params.id);
-// 	query.first().then((goldStatus) => {
-// 		console.log(goldStatus);
-// 		const tmp =  goldStatus.get("totalReferralsMade")
-// 		console.log(tmp);
-// 		const totalReferralsMade = tmp === undefined ? 0 : tmp;
-// 		console.log(totalReferralsMade);
-// 		goldStatus.set("totalReferralsMade", totalReferralsMade + 1)
-// 		return goldStatus.save();
-// 	}, (error) => {
-// 		console.log(error);
-// 		console.log("logged error")
-// 		res.redirect(301, 'https://itunes.apple.com/us/app/unimarkit/id1377345929?mt=8');	
-// 	}).then((status) => {
-// 		console.log(status);
-// 		res.redirect(301, 'https://itunes.apple.com/us/app/unimarkit/id1377345929?mt=8');	
-// 	});
-// });
-
 app.get('/refer/:id', function(req, res) {
-	const query = new Parse.Query(Parse.User);
-	query.get(req.params.id,  {useMasterKey: true}).then((user) => {
-		console.log(req.params.id);
-		const tmp =  user.get("totalReferralsMade")
+	const query = new Parse.Query(
+		'Gold'
+	);
+	query.equalTo("userID", req.params.id);
+	console.log(req.params.id);
+	query.first().then((goldStatus) => {
+		console.log(goldStatus);
+		const tmp =  goldStatus.get("totalReferralsMade")
 		console.log(tmp);
 		const totalReferralsMade = tmp === undefined ? 0 : tmp;
 		console.log(totalReferralsMade);
-		user.set("totalReferralsMade", totalReferralsMade + 1)
-		user.save({useMasterKey: true}).then((status) => {
-			console.log(status);
-			res.redirect(301, 'https://itunes.apple.com/us/app/unimarkit/id1377345929?mt=8');	
-		});
-	})
+		goldStatus.set("totalReferralsMade", totalReferralsMade + 1)
+		return goldStatus.save();
+	}, (error) => {
+		console.log(error);
+		console.log("logged error")
+		res.redirect(301, 'https://itunes.apple.com/us/app/unimarkit/id1377345929?mt=8');	
+	}).then((status) => {
+		console.log(status);
+		res.redirect(301, 'https://itunes.apple.com/us/app/unimarkit/id1377345929?mt=8');	
+	});
 });
 
 // There will be a test page available on the /test path of your server url
