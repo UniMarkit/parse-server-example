@@ -91,6 +91,7 @@ app.get('/refer/:id', function(req, res) {
 		const tmp =  goldStatus_status.get("totalReferralsMade")
 		console.log(tmp);
 		const totalReferralsMade = tmp === undefined ? 0 : tmp;
+		console.log(totalReferralsMade);
 		goldStatus.set("totalReferralsMade", totalReferralsMade + 1)
 	    goldStatus.save().then((status) => {
 			console.log(status);
