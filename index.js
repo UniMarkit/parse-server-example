@@ -86,9 +86,9 @@ app.get('/refer/:id', function(req, res) {
 	);
 	query.equalTo("userID", req.params.id);
 	console.log(req.params.id);
-	query.first().then((goldStatus_status) => {
-		console.log(goldStatus_status);
-		const tmp =  goldStatus_status.get("totalReferralsMade")
+	query.first().then((goldStatus) => {
+		console.log(goldStatus);
+		const tmp =  goldStatus.get("totalReferralsMade")
 		console.log(tmp);
 		const totalReferralsMade = tmp === undefined ? 0 : tmp;
 		console.log(totalReferralsMade);
