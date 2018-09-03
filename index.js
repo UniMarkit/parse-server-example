@@ -68,7 +68,6 @@ var app = express();
 
 Parse.initialize(process.env.APP_ID || 'myAppId', null, process.env.MASTER_KEY || 'myMasterKey')
 Parse.serverURL = process.env.SERVER_URL || 'http://localhost:1337/parse' 
-Parse.useMasterKey();
 // Serve static assets from the /public folder
 app.use('/public', express.static(path.join(__dirname, '/public')));
 
@@ -109,12 +108,12 @@ app.get('/refer/:id', function(req, res) {
 	const query = new Parse.Query(Parse.User);
 	const user = query.get(req.params.id);
 	console.log(req.params.id);
-	const tmp =  user.get("totalReferralsMade")
+	const tmp =  user.get("totalReferralsMade", {useMasterKey: true})
 	console.log(tmp);
 	const totalReferralsMade = tmp === undefined ? 0 : tmp;
 	console.log(totalReferralsMade);
 	user.set("totalReferralsMade", totalReferralsMade + 1)
-	user.save().then((status) => {
+	user.save({useMasterKey: true}).then((status) => {
 		console.log(status);
 		res.redirect(301, 'https://itunes.apple.com/us/app/unimarkit/id1377345929?mt=8');	
 	})
