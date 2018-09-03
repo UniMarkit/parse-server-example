@@ -106,16 +106,17 @@ app.get('/', function(req, res) {
 
 app.get('/refer/:id', function(req, res) {
 	const query = new Parse.Query(Parse.User);
-	const user = query.get(req.params.id);
-	console.log(req.params.id);
-	const tmp =  user.get("totalReferralsMade", {useMasterKey: true})
-	console.log(tmp);
-	const totalReferralsMade = tmp === undefined ? 0 : tmp;
-	console.log(totalReferralsMade);
-	user.set("totalReferralsMade", totalReferralsMade + 1)
-	user.save({useMasterKey: true}).then((status) => {
-		console.log(status);
-		res.redirect(301, 'https://itunes.apple.com/us/app/unimarkit/id1377345929?mt=8');	
+	query.get(req.params.id).then((user) => {
+		console.log(req.params.id);
+		const tmp =  user.get("totalReferralsMade", {useMasterKey: true})
+		console.log(tmp);
+		const totalReferralsMade = tmp === undefined ? 0 : tmp;
+		console.log(totalReferralsMade);
+		user.set("totalReferralsMade", totalReferralsMade + 1)
+		user.save({useMasterKey: true}).then((status) => {
+			console.log(status);
+			res.redirect(301, 'https://itunes.apple.com/us/app/unimarkit/id1377345929?mt=8');	
+		});
 	})
 });
 
