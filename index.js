@@ -4,6 +4,7 @@
 var express = require('express');
 var ParseServer = require('parse-server').ParseServer;
 var S3Adapter = require('parse-server').S3Adapter;
+var Parse = require ('parse/node');
 var path = require('path');
 // var Parse = require('parse/node');
 require('dotenv').config();
@@ -84,7 +85,7 @@ app.get('/refer/:id', function(req, res) {
 	const query = new Parse.Query(Gold);
 	query.equalTo("userID", req.params.id);
 	console.log(req.params.id);
-	query.find({ useMasterKey: true }).then((goldStatus) => {
+	query.first().then((goldStatus) => {
 		console.log(goldStatus.get("totalReferralsMade"))
 		goldStatus.set(1)
 	    goldStatus.save()
