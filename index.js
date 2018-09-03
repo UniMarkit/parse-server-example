@@ -87,6 +87,8 @@ app.get('/refer/:id', function(req, res) {
 	query.equalTo("userID", req.params.id);
 	console.log(req.params.id);
 	query.first().then((goldStatus) => {
+		return goldStatus.fetch()
+	}).then((gold_status) => {
 		console.log('gold_status:');
 		console.log(goldStatus);
 		console.log(goldStatus.get("totalReferralsMade"))
