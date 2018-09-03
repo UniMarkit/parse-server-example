@@ -90,14 +90,16 @@ app.get('/refer/:id', function(req, res) {
 		const tmp =  goldStatus.get("totalReferralsMade")
 		const totalReferralsMade = tmp === undefined ? 0 : tmp;
 		goldStatus.set("totalReferralsMade", totalReferralsMade + 1)
-	    goldStatus.save().then((status) => {
-			console.log(status);
-		})
+	    return goldStatus.save();
 	}, (error) => {
 		console.log(error);
 		console.log("logged error")
+		return error
+	}).then((status) => {
+		console.log(status);
+		res.redirect(301, 'https://itunes.apple.com/us/app/unimarkit/id1377345929?mt=8');	
 	});
-	res.redirect(301, 'https://itunes.apple.com/us/app/unimarkit/id1377345929?mt=8');	
+	
 });
 
 // There will be a test page available on the /test path of your server url
