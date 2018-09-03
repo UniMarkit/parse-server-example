@@ -81,8 +81,9 @@ app.get('/', function(req, res) {
 });
 
 app.get('/refer/:id', function(req, res) {
-	const Gold = Parse.Object.extend("Gold");
-	const query = new Parse.Query(Gold);
+	const query = new Parse.Query(
+		'Gold'
+	);
 	query.equalTo("userID", req.params.id);
 	console.log(req.params.id);
 	query.first().then((goldStatus) => {
@@ -92,7 +93,6 @@ app.get('/refer/:id', function(req, res) {
 			console.log(status);
 			res.redirect(301, 'https://itunes.apple.com/us/app/unimarkit/id1377345929?mt=8');	
 		})
-		
 	}, (error) => {
 		console.log(error);
 		console.log("logged error")
