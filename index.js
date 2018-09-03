@@ -88,8 +88,11 @@ app.get('/refer/:id', function(req, res) {
 	query.first().then((goldStatus) => {
 		console.log(goldStatus.get("totalReferralsMade"))
 		goldStatus.set(1)
-	    goldStatus.save()
-		res.redirect(301, 'https://itunes.apple.com/us/app/unimarkit/id1377345929?mt=8');
+	    goldStatus.save().then((status) => {
+			console.log(status);
+			res.redirect(301, 'https://itunes.apple.com/us/app/unimarkit/id1377345929?mt=8');	
+		})
+		
 	}, (error) => {
 		console.log(error);
 		console.log("logged error")
