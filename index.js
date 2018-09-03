@@ -57,6 +57,8 @@ var api = new ParseServer({
 	 	}
 	 )
 });
+
+console.log(api);
 // Client-keys like the javascript key or the .NET key are not necessary with parse-server
 // If you wish you require them, you can set them as options in the initialization above:
 // javascriptKey, restAPIKey, dotNetKey, clientKey
@@ -82,15 +84,15 @@ app.get('/refer/:id', function(req, res) {
 	const query = new Parse.Query(Gold);
 	query.equalTo("userID", req.params.id);
 	console.log(req.params.id);
-	query.first({ useMasterKey: true }).then((goldStatus) => {
+	query.find({ useMasterKey: true }).then((goldStatus) => {
 		console.log(goldStatus.get("totalReferralsMade"))
 		goldStatus.set(1)
-		goldStatus.save()
+	    goldStatus.save()
 		res.redirect(301, 'https://itunes.apple.com/us/app/unimarkit/id1377345929?mt=8');
 	}, (error) => {
 		console.log(error);
 		console.log("logged error")
-		res.redirect(301, 'https://itunes.apple.com/us/app/unimarkit/id1377345929?mt=8');
+		res.redirect(404, 'https://itunes.apple.com/us/app/unimarkit/id1377345929?mt=8');
 	});
 });
 

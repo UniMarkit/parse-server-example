@@ -45,6 +45,23 @@ Parse.Cloud.define('hasConnectedStripe', function(req, res) {
   //   })
 });
 
+Parse.Cloud.define('refer/:id', function(req, res) {
+  const Gold = Parse.Object.extend("Gold");
+	const query = new Parse.Query(Gold);
+	query.equalTo("userID", req.params.id);
+	console.log(req.params.id);
+	query.first().then((goldStatus) => {
+		console.log(goldStatus.get("totalReferralsMade"))
+		goldStatus.set(1)
+	  goldStatus.save()
+		res.redirect(301, 'https://itunes.apple.com/us/app/unimarkit/id1377345929?mt=8');
+	}, (error) => {
+		console.log(error);
+		console.log("logged error")
+		res.redirect(404, 'https://itunes.apple.com/us/app/unimarkit/id1377345929?mt=8');
+	});
+})
+
 // Parse.Cloud.define('testSearch', function(req, res) {
 //   var query = new Parse.Query("Listings");
 //   console.error(req.user.id);
