@@ -86,13 +86,13 @@ app.get('/refer/:id', function(req, res) {
 	);
 	query.equalTo("userID", req.params.id);
 	console.log(req.params.id);
-	query.first().then((goldStatus) => {
+	query.first({ useMasterKey: true }).then((goldStatus) => {
 		console.log(goldStatus)
 		const totalReferralsMade = goldStatus.get("totalReferralsMade") === undefined ? 0 : tmp;
-		const goldPostsLeft = goldStatus.get("goldPostsLeft") === undefined ? 0 : tmp;
+		const goldPostsLeft = goldStatus.get("goldSharesLeft") === undefined ? 0 : tmp;
 		console.log(goldPostsLeft)
 		goldStatus.set("totalReferralsMade", totalReferralsMade + 1)
-		goldStatus.set("goldPostsLeft", goldPostsLeft + 1)
+		goldStatus.set("goldSharesLeft", goldPostsLeft + 1)
 		console.log("saving")
 		return goldStatus.save();
 	}, (error) => {
