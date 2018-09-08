@@ -92,7 +92,7 @@ app.get('/refer/:id', function(req, res) {
             var gold = new Gold();
             gold.set("userID", id);
             gold.set("goldSharesLeft", 1);
-            gold.set("totalRefferalsMade", 1);
+            gold.set("totalReferralsMade", 1);
             return gold.save()
         } else {
             const totalReferralsMadeMaybe = goldStatus.get("totalReferralsMade")
