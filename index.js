@@ -84,25 +84,32 @@ app.get('/refer/:id', function(req, res) {
 	const query = new Parse.Query(
 		'Gold'
 	);
+	const id = req.params.id;
 	query.equalTo("userID", req.params.id);
-	console.log(req.params.id);
-	query.first({ useMasterKey: true }).then((goldStatus) => {
-		console.log(goldStatus)
-		const totalReferralsMade = goldStatus.get("totalReferralsMade") === undefined ? 0 : tmp;
-		const goldPostsLeft = goldStatus.get("goldSharesLeft") === undefined ? 0 : tmp;
-		console.log(goldPostsLeft)
-		goldStatus.set("totalReferralsMade", totalReferralsMade + 1)
-		goldStatus.set("goldSharesLeft", goldPostsLeft + 1)
-		console.log("saving")
-		return goldStatus.save();
-	}, (error) => {
-		console.log(error);
-		console.log("logged error")
-		res.redirect(301, 'https://itunes.apple.com/us/app/unimarkit/id1377345929?mt=8');	
+	query.first().then((goldStatus) => {
+        if (goldStatus === undefined) {
+            var Gold = Parse.Object.extend("Gold");
+            var gold = new Gold();
+            gold.set("userID", id);
+            gold.set("goldSharesLeft", 1);
+            gold.set("totalRefferalsMade", 1);
+            return gold.save()
+        } else {
+            const totalReferralsMadeMaybe = goldStatus.get("totalReferralsMade")
+            const goldPostsLeftMaybe = goldStatus.get("goldSharesLeft")
+            const totalReferralsMade = totalReferralsMadeMaybe === undefined ? 0 : totalReferralsMadeMaybe;
+            const goldPostsLeft = goldPostsLeftMaybe === undefined ? 0 : goldPostsLeftMaybe;
+            goldStatus.set("totalReferralsMade", totalReferralsMade + 1)
+            goldStatus.set("goldSharesLeft", goldPostsLeft + 1)
+            return goldStatus.save();
+        }
 	}).then((status) => {
-		console.log(status);
 		res.redirect(301, 'https://itunes.apple.com/us/app/unimarkit/id1377345929?mt=8');	
-	});
+	}).catch( (error) => {
+		console.log(error);
+        console.log("Could not log referral for " + id);
+        res.redirect(301, 'https://itunes.apple.com/us/app/unimarkit/id1377345929?mt=8');	
+    });
 });
 
 // There will be a test page available on the /test path of your server url
