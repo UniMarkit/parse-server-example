@@ -33,6 +33,13 @@ Parse.Cloud.define('search', function(req, res) {
     })
 });
 
+Parse.Cloud.beforeSave("Listings", function(request, response) {
+  var forSale = Boolean(request.object.get("BuySell"));
+  var outsideOfSchool = Boolean(request.object.get("visibleBeyondSchool"));
+  request.object.set("showInSearch", forSale && outsideOfSchool);
+  response.success();
+});
+
 Parse.Cloud.define('hasConnectedStripe', function(req, res) {
   // var query = new Parse.Query("User");
   res.success(false);
